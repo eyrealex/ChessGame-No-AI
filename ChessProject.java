@@ -561,16 +561,19 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         System.out.println("The yMovement is : " + yMovement);
         System.out.println("The new coordinates are : " + "( " + newX + "," + newY + ")");
         System.out.println("--------------------------------");
-        Boolean inTheWay = false;
-        int distance = (startX - newX); //distance is equal to the starting coordinate of X minus the coordinate of where piece was moved to on X axis
+
+        int j = (startX - newX); //set j to the distance in how many times X has moved
+        if (j < 0){
+            j = j * -1;
+        }
 
         if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { // if the piece is is not on the board
-            validMove = false; //dont allow a move
+            validMove = false; //don't allow a move
         }//end if
         else { //otherwise
             validMove = true; //allow a move
+            for(int i=0; i<j; i++){ //loop through all the moves possible
 
-            for(int i=0; i<distance; i++){
 
             }
         }//end else
