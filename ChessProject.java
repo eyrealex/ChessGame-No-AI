@@ -563,17 +563,31 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         System.out.println("--------------------------------");
 
         int j = (startX - newX); //set j to the distance in how many times X has moved
-        if (j < 0){
-            j = j * -1;
+        if (j < 0) {
+            j = j * -1; //the distance x has moved is multiplied by -1
         }
 
-        if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { // if the piece is is not on the board
+        if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { // if the piece is not on the board
             validMove = false; //don't allow a move
         }//end if
         else { //otherwise
             validMove = true; //allow a move
-            for(int i=0; i<j; i++){ //loop through all the moves possible
+            for (int i = 0; i < j; i++) { //loop through all the moves possible
 
+                //move down in a positive diagonal
+                if ((j) == startY - newY) {
+
+                    //move down in a positive diagonal
+                    if (piecePresent((initialX + (i * 75)), (initialY + (i * 75)))) { //if the piece is
+                        validMove = true;
+                    } else if ((pieceName.contains("White") && checkWhiteOponent(e.getX(), e.getY()))) {
+                        validMove = true;
+                    } else {
+                        validMove = true;
+                    }
+                    break;
+
+                }
 
             }
         }//end else
