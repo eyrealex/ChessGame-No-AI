@@ -566,30 +566,106 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         if (j < 0) {
             j = j * -1; //the distance x has moved is multiplied by -1
         }
+        String str1 = Integer.toString(newX);
+        String str2 = Integer.toString(newY);
+        String str3 = Integer.toString(startX);
+        String str4 = Integer.toString(startY);
+
+        int value1 = Integer.parseInt(str1 + str2);
+        int value2 = Integer.parseInt(str3 + str4);
+        int value = value1 - value2;
+
 
         if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { // if the piece is not on the board
             validMove = false; //don't allow a move
         }//end if
         else { //otherwise
-            validMove = true; //allow a move
-            for (int i = 0; i < j; i++) { //loop through all the moves possible
 
-                //move down in a positive diagonal
-                if ((j) == startY - newY) {
+            for (int i = 1; i <= j; i++) { //loop through all the moves possible
 
-                    //move down in a positive diagonal
-                    if (piecePresent((initialX + (i * 75)), (initialY + (i * 75)))) { //if the piece is
-                        validMove = true;
-                    } else if ((pieceName.contains("White") && checkWhiteOponent(e.getX(), e.getY()))) {
-                        validMove = true;
-                    } else {
+                //move down and left
+                if ((value % 9 == 0) && (startX > newX)) {
+                    if (piecePresent(((startX - i) * 75), ((startY + i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piecename
+                    else {
                         validMove = true;
                     }
-                    break;
+                }//END IF FOR MODULAS
 
-                }
+                //move up and to the left
+                if ((value % 11 == 0) && (startX > newX)) {
+                    if (piecePresent(((startX - i) * 75), ((startY - i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piecename
+                    else {
+                        validMove = true;
+                    }
+                }//END IF FOR MODULAS
 
-            }
+                //move up down to the and right
+                if ((value % 9 == 0) && (startX < newX)) {
+                    if (piecePresent(((startX - i) * 75), ((startY - i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piecename
+                    else {
+                        validMove = true;
+                    }
+                }//END IF FOR MODULAS
+
+                //move up and to the right
+                if ((value % 11 == 0) && (startX < newX)) {
+                    if (piecePresent(((startX - i) * 75), ((startY + i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piecename
+                    else {
+                        validMove = true;
+                    }
+                }//END IF FOR MODULAS
+
+
+            }//end for for J
+
         }//end else
     }//end bishop method
 
