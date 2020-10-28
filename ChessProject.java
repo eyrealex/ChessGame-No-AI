@@ -425,20 +425,19 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             j = j * -1; //the distance x has moved is multiplied by -1
         }
 
-
-        if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { //ensure the piece is on the board
+        if ((newX < 0) || (newX > 7) || (newY < 0) || (newY > 7)) { //ensure the piece is on the board
             validMove = false;
         }//end if
         else {
 
             //going left
             for (int i = 1; i <= j; i++) {
-                if ((startY == newY) && (startX > newX)) { //if the remainder of value when divided by 9 is equal to 0
+                if ((startY == newY) && (startX > newX)) {
                     if (piecePresent(((startX - i) * 75), ((startY) * 75))) {
-                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteRook") || pieceName.equals("WhiteQueen"))) {
                             validMove = true;
                             break;
-                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackRook") || pieceName.equals("BlackQueen"))) {
                             validMove = true;
                             break;
                         }//end else if
@@ -450,8 +449,70 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                     else {
                         validMove = true;
                     }
-                }//END IF FOR modulus
-            }
+                }//end if for going left
+
+                //moving right
+                if ((startY == newY) && (startX < newX)) {
+                    if (piecePresent(((startX + i) * 75), ((startY) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteRook") || pieceName.equals("WhiteQueen"))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackRook") || pieceName.equals("BlackQueen"))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piece name
+                    else {
+                        validMove = true;
+                    }
+                }//end if for moving to the right
+
+                //moving down on the board
+                if ((startY < newY) && (startX == newX)) {
+                    if (piecePresent(((startX) * 75), ((startY + i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteRook") || pieceName.equals("WhiteQueen"))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackRook") || pieceName.equals("BlackQueen"))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piece name
+                    else {
+                        validMove = true;
+                    }
+                }//end if for moving down on the board
+
+                //moving up on the board
+                if ((startY > newY) && (startX == newX)) {
+                    if (piecePresent(((startX) * 75), ((startY - i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteRook") || pieceName.equals("WhiteQueen"))) {
+                            validMove = true;
+                            break;
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackRook") || pieceName.equals("BlackQueen"))) {
+                            validMove = true;
+                            break;
+                        }//end else if
+                        else {
+                            validMove = false;
+                            break;
+                        }
+                    }//end if piece name
+                    else {
+                        validMove = true;
+                    }
+                }//end if for moving up on the board
+
+
+            }//end for loop
 
 
         }//end main else for rook
@@ -469,7 +530,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         System.out.println("The yMovement is : " + yMovement);
         System.out.println("The starting coordinates are : " + "( " + newX + "," + newY + ")");
         System.out.println("--------------------------------");
-        if (((newX < 0) || (newX > 7)) || ((newY < 0) || newY > 7)) {
+        if ((newX < 0) || (newX > 7) || (newY < 0) || (newY > 7)) {
             validMove = false;
         } else {
             if (((newX == startX + 1) && (newY == startY + 2))
@@ -527,7 +588,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         int value = value1 - value2; //minus the two parsed integers and set to a value that can be used to get the number of steps it takes a bishop to move diagonally in any direction
 
 
-        if (((newX < 0) || (newX > 7)) || ((newY < 0) || (newY > 7))) { // if the piece is not on the board
+        if ((newX < 0) || (newX > 7) || (newY < 0) || (newY > 7)) { // if the piece is not on the board
             validMove = false; //don't allow a move
         }//end if
         else { //otherwise
@@ -537,10 +598,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 //move down and left
                 if ((value % 9 == 0) && (startX > newX)) { //if the remainder of value when divided by 9 is equal to 0
                     if (piecePresent(((startX - i) * 75), ((startY + i) * 75))) {
-                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteBishup") || pieceName.equals("WhiteQueen"))) {
                             validMove = true;
                             break;
-                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackBishup")|| pieceName.equals("BlackQueen"))) {
                             validMove = true;
                             break;
                         }//end else if
@@ -557,10 +618,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 //move up and to the left
                 if ((value % 11 == 0) && (startX > newX)) {
                     if (piecePresent(((startX - i) * 75), ((startY - i) * 75))) {
-                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteBishup") || pieceName.equals("WhiteQueen"))) {
                             validMove = true;
                             break;
-                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackBishup")|| pieceName.equals("BlackQueen"))){
                             validMove = true;
                             break;
                         }//end else if
@@ -575,12 +636,12 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }//END IF FOR modulus
 
                 //move up down to the and right
-                if ((value % 9 == 0) && (startX < newX)) {
-                    if (piecePresent(((startX - i) * 75), ((startY - i) * 75))) {
-                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                if ((value % 11 == 0) && (startX < newX)) {
+                    if (piecePresent(((startX + i) * 75), ((startY + i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteBishup") || pieceName.equals("WhiteQueen"))) {
                             validMove = true;
                             break;
-                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackBishup")|| pieceName.equals("BlackQueen"))) {
                             validMove = true;
                             break;
                         }//end else if
@@ -595,12 +656,12 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }//END IF FOR modulus
 
                 //move up and to the right
-                if ((value % 11 == 0) && (startX < newX)) {
-                    if (piecePresent(((startX - i) * 75), ((startY + i) * 75))) {
-                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals(("WhiteBishup")))) {
+                if ((value % 9 == 0) && (startX < newX)) {
+                    if (piecePresent(((startX + i) * 75), ((startY - i) * 75))) {
+                        if ((j == i) && (checkWhiteOponent((newX * 75), (newY * 75))) && (pieceName.equals("WhiteBishup") || pieceName.equals("WhiteQueen"))) {
                             validMove = true;
                             break;
-                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals(("BlackBishup")))) {
+                        } else if ((j == i) && (checkBlackOponent((newX * 75), (newY * 75))) && (pieceName.equals("BlackBishup")|| pieceName.equals("BlackQueen"))) {
                             validMove = true;
                             break;
                         }//end else if
@@ -631,6 +692,21 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         System.out.println("The yMovement is : " + yMovement);
         System.out.println("The starting coordinates are : " + "( " + newX + "," + newY + ")");
         System.out.println("--------------------------------");
+
+
+        if ((newX < 0) || (newX > 7) || (newY < 0) || (newY > 7)) { // if the piece is not on the board
+            validMove = false; //don't allow a move
+        }//end if
+        else{
+            if((pieceName.equals("WhiteQueen")) || (pieceName.equals("BlackQueen"))){
+                RookMethod(e);
+                if(!validMove){
+                    BishopMethod(e);
+                }
+            }
+        }//end else
+
+
     }//end queen method
 
     private void KingMethod(MouseEvent e) {//king method
