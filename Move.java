@@ -1,4 +1,4 @@
-class Move{
+class Move {
     Square start;
     Square landing;
 
