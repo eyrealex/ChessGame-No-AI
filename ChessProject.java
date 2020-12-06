@@ -318,7 +318,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
                 }
                 chessPiece.setVisible(true);
             }
-            
+
             makeAIMove();
         }//end else for if a valid move
 
@@ -740,29 +740,6 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     // AI code starts from here down....
     //*************************************************************************
 
-
-    /*
-
-                                                         _________
-                                                        |  Pawn   |
-                                                        | (x, y)  |
-                                           _____________|_________|_____________
-                                          |             |         |             |
-                                          |(x-75, y+75) |(x, y+75)|(x+75, y+75) |
-                                         _|_____________|_________|_____________|_
-                                          |             |         |             |
-
-
-*/
-    //valid movements the white pawn can attack
-    private Stack getWhitePawnSquares(int x, int y, String piece) {
-        Stack moves = new Stack();
-
-        // To be completed...
-
-        return moves;
-
-    }//end getWhitePawnSquares
 
     /*
                                                          (x, y-150)
@@ -1427,9 +1404,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
             Move selectedMove = null;
             if ((AIOption.contains("Random"))) {
                 selectedMove = agent.randomMove(testing);
-            }
-            else if ((AIOption.contains("NextBest"))) {
+            } else if ((AIOption.contains("NextBest"))) {
                 selectedMove = agent.nextBestMove(testing);
+            }else if(AIOption.contains("TwoDeep")){
+                selectedMove = agent.twoLevelsDeep(testing);
             }
 
             Square startingPoint = (Square) selectedMove.getStart();
