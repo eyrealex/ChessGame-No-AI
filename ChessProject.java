@@ -217,7 +217,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
         pieceName = tmp.substring(0, (tmp.length() - 4));
         validMove = false;
 
-        if((!turn) && pieceName.contains("White")){
+        if((!turn)){
             switch (pieceName) {
                 case ("WhitePawn"):
                     whitePawnMethod(e);
